@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useState } from "react";
 import Navbar     from "./components/Navbar";
 import Home       from "./pages/Home";
@@ -25,6 +25,7 @@ export default function App() {
       return [...prev, { ...product, qty: 1 }];
     });
   }
+
   function removeFromCart(id) { setCart(prev => prev.filter(p => p.id !== id)); }
   function updateQty(id, qty) {
     if (qty < 1) { removeFromCart(id); return; }
@@ -37,7 +38,7 @@ export default function App() {
   const cartCount = cart.reduce((s, p) => s + p.qty, 0);
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Navbar user={user} onLogout={handleLogout} cartCount={cartCount} />
       <Routes>
         <Route path="/"          element={<Home addToCart={addToCart} />} />
@@ -54,6 +55,6 @@ export default function App() {
         <Route path="/role"      element={<RoleSelect />} />
         <Route path="/success"   element={<Success />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
